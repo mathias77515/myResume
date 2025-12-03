@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Your Name — Resume</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="site" id="app">
+
+      <aside>
+        <div class="sidebar-top">
+          <div class="avatar" aria-hidden="true">
+            <img src="put you image" alt="Avatar" />
+          </div>
+          <div style="font-size: 1.8em; line-height: 0.6; text-align: center;">
+            <h1 id="name">Regnier Mathias</h1>
+            <h2>Astrophysicist • Data analysis</h2>
+            <div class="meta">Paris, France • Available for hire</div>
+          </div> 
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#home" data-route="#home">Home</a>
+          <a href="#about" data-route="#about">About</a>
+          <a href="#experience" data-route="#experience">Experience</a>
+          <a href="#projects" data-route="#projects">Projects</a>
+          <a href="#skills" data-route="#skills">Skills</a>
+          <a href="#contact" data-route="#contact">Contact</a>
+        </nav>
+
+        <div class="actions">
+          <button class="btn" id="downloadPdf">Download PDF</button>
+          <button class="btn ghost" id="toggleTheme">Toggle Theme</button>
+        </div>
+      </aside>
+
+      <main>
+        <div class="page-title">
+          <h1 id="pageTitle">Home</h1>
+        </div>
+        <div class="content" id="pageContent" tabindex="0"></div>
+      </main>
+
+    </div>
+
+    <!-- Templates -->
+    <template id="page-home">
+      <section>
+        <div class="card reveal"><h4>Home</h4><div id="experienceList"></div></div>
+      </section>
+    </template>
+
+    <template id="page-about">
+      <section>
+        <div class="card reveal">
+          <h4>About Me</h4>
+          <p>I am a product-minded frontend developer.</p>
+        </div>
+      </section>
+    </template>
+
+    <template id="page-experience">
+      <section>
+        <div class="card reveal"><h4>Experience</h4><div id="experienceList"></div></div>
+      </section>
+    </template>
+
+    <template id="page-projects">
+      <section>
+        <div class="card reveal"><h4>Projects</h4><div class="grid" id="projectsGrid"></div></div>
+      </section>
+    </template>
+
+    <template id="page-skills">
+      <section>
+        <div class="card reveal"><h4>Skills</h4><div class="pills" id="skillPills"></div></div>
+      </section>
+    </template>
+
+    <template id="page-contact">
+      <section>
+        <div class="card reveal">
+          <h4>Contact</h4>
+          <div class="contact-list">
+            <a href="mailto:you@example.com">you@example.com</a>
+            <a href="https://linkedin.com/in/your">LinkedIn</a>
+            <a href="https://github.com/your">GitHub</a>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <script src="index.js">
+      // Router and scripts (unchanged from previous version)
+      //const pages={"#home":{title:"Home",templateId:"page-home"},"#about":{title:"About",templateId:"page-about"},"#experience":{title:"Experience",templateId:"page-experience"},"#projects":{title:"Projects",templateId:"page-projects"},"#skills":{title:"Skills",templateId:"page-skills"},"#contact":{title:"Contact",templateId:"page-contact"}},defaultRoute="#home",pageContent=document.getElementById("pageContent"),pageTitle=document.getElementById("pageTitle");function setActiveNav(e){document.querySelectorAll(".nav a").forEach(t=>{t.dataset.active=t.getAttribute("href")===e})}function renderRoute(e){const t=pages[e]||pages[defaultRoute];pageTitle.textContent=t.title;const a=document.importNode(document.getElementById(t.templateId).content,!0);pageContent.classList.add("page-enter"),pageContent.innerHTML="",pageContent.appendChild(a),requestAnimationFrame(()=>{pageContent.classList.add("page-enter-active"),pageContent.classList.remove("page-enter")}),setActiveNav(e),runPageScripts(e),pageContent.scrollTop=0}window.addEventListener("hashchange",()=>{renderRoute(location.hash||defaultRoute)}),location.hash||(location.hash=defaultRoute),renderRoute(location.hash||defaultRoute);function createCard(e){const t=document.createElement("div");return t.className="card reveal",t.innerHTML=`<div style="display:flex;justify-content:space-between;"><div><strong>${e.title}</strong><div class="meta">${e.role} • ${e.company}</div></div><div class="meta">${e.period}</div></div><p>${e.description}</p>`,t}const sampleExperience=[{title:"Senior Frontend Engineer",role:"Frontend",company:"Acme Corp",period:"2022 — Present",description:"Led the migration to a design system."},{title:"Product Engineer",role:"Fullstack",company:"Startup Inc",period:"2019 — 2022",description:"Built core features for thousands of users."}],sampleProjects=[{title:"Design System",desc:"Reusable components and tokens."},{title:"Analytics Dashboard",desc:"Interactive visualizations."}],sampleSkills=["HTML","CSS","JavaScript","React","TypeScript","Accessibility"];function runPageScripts(e){const t=new IntersectionObserver(a=>{a.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),t.unobserve(r.target))})},{threshold:.08});document.querySelectorAll(".reveal").forEach(a=>t.observe(a)),e==="#experience"&&(document.getElementById("experienceList").innerHTML="",sampleExperience.forEach(a=>document.getElementById("experienceList").appendChild(createCard(a)))),e==="#projects"&&(document.getElementById("projectsGrid").innerHTML="",sampleProjects.forEach(a=>{const r=document.createElement("div");r.className="card",r.innerHTML=`<strong>${a.title}</strong><p class="meta">${a.desc}</p>`,document.getElementById("projectsGrid").appendChild(r)})),e==="#skills"&&(document.getElementById("skillPills").innerHTML="",sampleSkills.forEach(a=>{const r=document.createElement("span");r.className="pill",r.textContent=a,document.getElementById("skillPills").appendChild(r)}))}document.getElementById("printBtn").onclick=()=>window.print(),document.getElementById("downloadPdf").onclick=()=>alert("Use Print → Save as PDF."),document.getElementById("toggleTheme").onclick=()=>{document.body.dataset.theme!="light"?(document.body.dataset.theme="light",document.documentElement.style.setProperty("--bg","#f7fafc"),document.documentElement.style.setProperty("--text","#0b1220")):(document.body.dataset.theme="",document.documentElement.style.removeProperty("--bg"),document.documentElement.style.removeProperty("--text"))};
+    </script>
+  </body>
+</html>
